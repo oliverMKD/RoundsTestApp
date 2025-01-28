@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">RoundsTestApp</string>
+    <string name="clear_cache">Clear cache</string>
 </resources>

@@ -2,6 +2,7 @@ package com.oliver.roundstestapp
 
 import android.content.Context
 import android.os.Bundle
+import android.widget.Button
 import androidx.activity.ComponentActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,6 +24,11 @@ class MainActivity : ComponentActivity() {
         val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = GridLayoutManager(this, 2)
         recyclerView.adapter = ImageAdapter(images, library)
+
+        val button : Button = findViewById(R.id.btnClearCache)
+        button.setOnClickListener {
+            library.clearCache()
+        }
     }
 
     private fun loadImagesFromJson(

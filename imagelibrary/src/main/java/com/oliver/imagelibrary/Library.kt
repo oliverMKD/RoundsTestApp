@@ -1,15 +1,19 @@
 package com.oliver.imagelibrary
 
 import android.content.Context
-import android.util.Log
 import android.widget.ImageView
 import com.oliver.imagelibrary.async.DownloadImageTask
 import com.oliver.imagelibrary.cache.CacheRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 
 
 class Library internal constructor(context: Context) {
 
     private val cacheRepository = CacheRepository(context)
+    private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 
     fun loadImage(
         url: String,
@@ -21,6 +25,8 @@ class Library internal constructor(context: Context) {
     }
 
     fun clearCache() {
-        cacheRepository.clear()
+        scope.launch {
+            cacheRepository.clear()
+        }
     }
 }
