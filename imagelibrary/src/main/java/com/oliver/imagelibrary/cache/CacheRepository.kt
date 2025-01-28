@@ -2,9 +2,8 @@ package com.oliver.imagelibrary.cache
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.util.Log
 
-class CacheRepository (
+internal class CacheRepository(
     context: Context,
     memoryCacheSize: Int = 1024 * 1024 * 4
 ) : ImageCache {
@@ -12,12 +11,12 @@ class CacheRepository (
     private val memoryCache = MemoryCache(memoryCacheSize)
     private val diskCache = DiskCache(context)
 
-    override fun put(url: String, bitmap: Bitmap) {
+    override suspend fun put(url: String, bitmap: Bitmap) {
         memoryCache.put(url, bitmap)
         diskCache.put(url, bitmap)
     }
 
-    override fun get(url: String): Bitmap? {
+    override suspend fun get(url: String): Bitmap? {
         memoryCache.get(url)?.let {
             return it
         }
@@ -28,7 +27,7 @@ class CacheRepository (
         return null
     }
 
-    override fun clear() {
+    override suspend fun clear() {
         memoryCache.clear()
         diskCache.clear()
     }

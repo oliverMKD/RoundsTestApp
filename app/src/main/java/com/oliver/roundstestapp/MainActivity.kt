@@ -2,22 +2,13 @@ package com.oliver.roundstestapp
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
+import android.widget.Button
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.oliver.imagelibrary.Library
-import com.oliver.roundstestapp.ui.theme.RoundsTestAppTheme
+import com.oliver.imagelibrary.LibraryFactory
 
 class MainActivity : ComponentActivity() {
 
@@ -26,13 +17,18 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        library = Library.getInstance(this)
+        library = LibraryFactory.create(this)
 
         val images = loadImagesFromJson(this)
 
         val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = GridLayoutManager(this, 2) // 2 columns
+        recyclerView.layoutManager = GridLayoutManager(this, 2)
         recyclerView.adapter = ImageAdapter(images, library)
+
+        val button : Button = findViewById(R.id.btnClearCache)
+        button.setOnClickListener {
+            library.clearCache()
+        }
     }
 
     private fun loadImagesFromJson(

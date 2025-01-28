@@ -4,7 +4,7 @@ import android.graphics.Bitmap
 import android.util.LruCache
 import com.oliver.imagelibrary.cache.model.CacheEntry
 
-class MemoryCache(
+internal class MemoryCache(
     newMaxSize: Int
 ) : ImageCache {
 
@@ -27,12 +27,12 @@ class MemoryCache(
         }
     }
 
-    override fun put(url: String, bitmap: Bitmap) {
+    override suspend fun put(url: String, bitmap: Bitmap) {
         val entry = CacheEntry(bitmap, System.currentTimeMillis())
         cache.put(url, entry)
     }
 
-    override fun get(url: String): Bitmap? {
+    override suspend fun get(url: String): Bitmap? {
         val entry = cache.get(url)
         if (entry != null) {
             val currentTime = System.currentTimeMillis()
@@ -45,7 +45,7 @@ class MemoryCache(
         return null
     }
 
-    override fun clear() {
+    override suspend fun clear() {
         cache.evictAll()
     }
 }
