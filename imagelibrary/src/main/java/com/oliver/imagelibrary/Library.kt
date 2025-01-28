@@ -11,7 +11,11 @@ class Library private constructor(context: Context) {
 
     private val cacheRepository = CacheRepository(context)
 
-    fun loadImage(url: String, imageView: ImageView, placeholder: Int? = null) {
+    fun loadImage(
+        url: String,
+        imageView: ImageView,
+        placeholder: Int? = null
+    ) {
         placeholder?.let { imageView.setImageResource(it) }
         DownloadImageTask(url, imageView, cacheRepository).execute()
     }

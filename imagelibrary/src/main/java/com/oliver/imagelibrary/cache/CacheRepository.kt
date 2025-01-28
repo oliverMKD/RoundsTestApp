@@ -4,7 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.util.Log
 
-class CacheRepository (
+internal class CacheRepository (
     context: Context,
     memoryCacheSize: Int = 1024 * 1024 * 4
 ) : ImageCache {

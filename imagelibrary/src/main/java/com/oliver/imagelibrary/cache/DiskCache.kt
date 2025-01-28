@@ -11,7 +11,7 @@ import java.math.BigInteger
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
-class DiskCache(
+internal class DiskCache(
     context: Context,
 ) : ImageCache {
 

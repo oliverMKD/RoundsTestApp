@@ -4,7 +4,7 @@ import android.graphics.Bitmap
 import android.util.LruCache
 import com.oliver.imagelibrary.cache.model.CacheEntry
 
-class MemoryCache(
+internal class MemoryCache(
     newMaxSize: Int
 ) : ImageCache {
 
